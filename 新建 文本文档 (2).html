@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>经纬度转腾讯地图位置</title>
+    <script src="https://map.qq.com/api/js?v=2.exp&key=YOUR_API_KEY"></script>
+</head>
+<body>
+    <h1>输入经纬度查看地图</h1>
+    <form id="locationForm">
+        <label for="latitude">纬度:</label>
+        <input type="text" id="latitude" name="latitude" required><br><br>
+        <label for="longitude">经度:</label>
+        <input type="text" id="longitude" name="longitude" required><br><br>
+        <button type="button" onclick="showLocation()">显示位置</button>
+    </form>
+    <div id="map" style="width: 600px; height: 400px;"></div>
+
+    <script>
+        var map;
+        function initMap() {
+            map = new qq.maps.Map(document.getElementById("map"), {
+                center: new qq.maps.LatLng(39.916527, 116.397128), // 默认中心点为北京
+                zoom: 8
+            });
+        }
+
+        function showLocation() {
+            var lat = parseFloat(document.getElementById('latitude').value);
+            var lng = parseFloat(document.getElementById('longitude').value);
+            var center = new qq.maps.LatLng(lat, lng);
+            map.setCenter(center);
+            map.setZoom(14);
+            new qq.maps.Marker({
+                position: center,
+                map: map
+            });
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
